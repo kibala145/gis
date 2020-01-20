@@ -1,5 +1,5 @@
 export default {
   initMap(state, map) {
-    state.instance = map;
+    state.map = map;
   }
 }

@@ -1,3 +1,3 @@
 export default {
-  instance: null
+  map: null
 }

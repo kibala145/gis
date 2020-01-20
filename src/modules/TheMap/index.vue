@@ -20,15 +20,48 @@
         default: 8
       }
     },*/
+    data() {
+      return {
+        map: null
+      }
+    },
+    methods: {
+      _onMoveend() {
+        this.$store.commit('setViewport', this.getViewport());
+      },
+      getViewport() {
+        const { lng, lat } = this.map.getCenter();
+        const zoom = this.map.getZoom();
+        const pitch = this.map.getPitch();
+        const bearing = this.map.getBearing();
+
+        return {
+          latitude: lat,
+          longitude: lng,
+          zoom,
+          pitch,
+          bearing
+        };
+      }
+    },
     mounted() {
-      const map = new Map({
+      this.map = new Map({
         container: 'map', // container id
         hash,
         style: styles[0],
         center,
         zoom
       });
-      // Add geolocate control to the map.
+
+      this.map.on('moveend', this._onMoveend);
+      // const commit = this.$store.commit;
+      /*this.map.on('dragend', this._onMoveend);
+      this.map.on('zoomend', this._onMoveend);
+      this.map.on('rotateend', this._onMoveend);
+      this.map.on('pitchend', this._onMoveend);
+      this.map.on('boxzoomend', this._onMoveend);*/
+
+      // Add geolocate control to the mapViewport.
       if (geolocation) {
         const geoControl = new GeolocateControl({
           positionOptions: {
@@ -40,10 +73,11 @@
           }
         });
 
-        map.addControl(geoControl);
+        this.map.addControl(geoControl);
       }
 
-      this.$store.commit('initMap', map);
+      this.$store.commit('initMap', this.map);
+      this.$store.commit('setViewport', this.getViewport());
     }
   }
 </script>

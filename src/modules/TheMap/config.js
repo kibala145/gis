@@ -5,5 +5,5 @@ export const
   ],
   zoom = 8,
   center = [20.4852, 54.7788],
-  hash = false,
+  hash = true,
   geolocation = true;

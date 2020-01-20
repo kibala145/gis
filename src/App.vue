@@ -17,7 +17,7 @@
     },
     computed: {
       /*...mapState({
-        mapInstance: state => state.map.instance
+        mapInstance: state => state.map
       })*/
     },
     components: {
@@ -29,7 +29,7 @@
         then it should be handled by watching store state property
         after watching once it's not null, remove watch handler to free memory
       */
-      const map = this.$store.state.map.instance;
+      const map = this.$store.state.map;
 
       /* Once map is loaded you can use it fully */
       map.on('load', () => {
