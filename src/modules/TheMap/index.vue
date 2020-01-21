@@ -1,5 +1,8 @@
 <template>
-  <div id="map"></div>
+  <div>
+    <div id="map"></div>
+    <slot v-if="loaded"/>
+  </div>
 </template>
 
 <script>
@@ -22,7 +25,8 @@
     },*/
     data() {
       return {
-        map: null
+        map: null,
+        loaded: false
       }
     },
     methods: {
@@ -45,6 +49,7 @@
       }
     },
     mounted() {
+      debugger
       this.map = new Map({
         container: 'map', // container id
         hash,
@@ -75,6 +80,8 @@
 
         this.map.addControl(geoControl);
       }
+
+      this.map.on('load', () => {debugger; this.loaded = true});
 
       this.$store.commit('initMap', this.map);
       this.$store.commit('setViewport', this.getViewport());

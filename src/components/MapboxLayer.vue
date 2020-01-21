@@ -1,36 +1,16 @@
-<template>
-  <div id="app">
-    <the-map>
-      <mapbox-layer
-        v-for="layer in layers"
-        :key="layer.id"
-        :layer="layer"
-        @click="clickHandler"
-        @mousemove="mousemoveHandler"
-        @mouseleave="mouseleaveHandler"
-      />
-    </the-map>
-  </div>
-</template>
-
 <script>
-  /*eslint-disable*/
-  import TheMap from '@/modules/TheMap/index';
-  import MapboxLayer from '@/components/MapboxLayer';
-  // import {mapState} from 'vuex';
-
   export default {
-    data() {
+    name: 'MapboxLayer',
+    /*data() {
       return {
-        featureId: null,
-        layers: [{
+        layer: {
           'id': 'maine',
-            'type': 'fill',
-            'source': {
+          'type': 'fill',
+          'source': {
             'type': 'geojson',
-              'data': {
+            'data': {
               "type": "FeatureCollection",
-                "features": [
+              "features": [
                 {
                   "type": "Feature",
                   "properties": {},
@@ -173,77 +153,38 @@
               '#066',
               '#088'
             ],
-              'fill-opacity': 0.8
+            'fill-opacity': 0.8
           }
-        }]
-      }
-    },
-    methods: {
-      clickHandler(e) {
-        debugger
-        e
-      },
-      mousemoveHandler(e) {
-        debugger
-        if (e.features.length > 0) {
-          if (this.featureId) {
-            e.target.removeFeatureState({
-              source: "maine",
-              id: this.featureId
-            });
-          }
-          this.featureId = e.features[0].id;
-          e.target.setFeatureState({
-            source: 'maine',
-            id: this.featureId
-          }, {
-            hover: true
-          });
-          e.target.getCanvas().style.cursor = 'pointer';
         }
+      }
+    },*/
+    props: {
+      events: {
+        type: Array,
+        default: () => []
       },
-      mouseleaveHandler(e) {
-        debugger
-        e.target.setFeatureState({
-          source: 'maine',
-          id: this.featureId
-        }, {
-          hover: false
-        });
-        e.target.getCanvas().style.cursor = '';
-        this.featureId = null;
+      layer: {
+        type: Object,
+        default: () => ({})
       }
     },
-    computed: {
-      /*...mapState({
-        mapInstance: state => state.map
-      })*/
-    },
-    components: {
-      TheMap,
-      MapboxLayer
+    render(createElement) {
+      debugger
+      createElement
+      return false;
     },
     mounted() {
-      /*
-        If getting error here,
-        then it should be handled by watching store state property
-        after watching once it's not null, remove watch handler to free memory
-      */
-      // const map = this.$store.state.map;
-
-      /* Once map is loaded you can use it fully */
-      /*map.on('load', () => {
-        map.on('click', 'building-3d', e => {
-          debugger
-          e
-        })
-      });*/
+      if (!this.layer.id) {
+        console.err('Error rendering MapboxLayer component');
+        return
+      }
+      this.$store.state.map.addLayer(this.layer);
+      /*this.events.forEach(event => {
+        this.$store.state.map.on(event, 'maine', e => this.$emit(event, e))
+      })*/
+      Object.getOwnPropertyNames(this.$listeners).forEach(event => {
+        this.$store.state.map.on(event, this.layer.id, this.$listeners[event])
+      })
     }
   }
 </script>
-
-<style lang="scss">
-body {
-  margin: 0;
-}
-</style>
