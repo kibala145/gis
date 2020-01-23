@@ -1,181 +1,209 @@
 <template>
   <div id="app">
-    <the-map>
-      <mapbox-layer
-        v-for="layer in layers"
-        :key="layer.id"
-        :layer="layer"
-        @click="clickHandler"
-        @mousemove="mousemoveHandler"
-        @mouseleave="mouseleaveHandler"
-      />
+    <the-map
+      :container="container"
+      :mapStyle="mapStyle"
+      :hash="hash"
+      :center="center"
+      :zoom="zoom"
+      :pitch="pitch"
+    >
+      <mapbox-source
+        v-if="data"
+        id="1"
+        :data="data"
+      >
+        <mapbox-layer
+          v-for="layer in layers"
+          :key="layer.id"
+          :layer="layer"
+          @click="clickHandler"
+          @mousemove="mousemoveHandler"
+          @mouseleave="mouseleaveHandler"
+        />
+      </mapbox-source>
     </the-map>
+    <the-layers />
   </div>
 </template>
 
 <script>
   /*eslint-disable*/
-  import TheMap from '@/modules/TheMap/index';
-  import MapboxLayer from '@/components/MapboxLayer';
+  import TheMap from '@/modules/TheMap/';
+  import MapboxLayer from '@/components/mapbox/MapboxLayer';
+  import MapboxSource from '@/components/mapbox/MapboxSource';
+  import TheLayers from '@/modules/TheLayers/';
+  import {mapStyles, zoom, center, hash, container, pitch} from '@/config';
+  import axios from 'axios'
   // import {mapState} from 'vuex';
 
   export default {
     data() {
       return {
         featureId: null,
-        layers: [{
-          'id': 'maine',
+        layers: [
+          {
+            'id': 'maine',
             'type': 'fill',
             'source': {
-            'type': 'geojson',
+              'type': 'geojson',
               'data': {
-              "type": "FeatureCollection",
+                "type": "FeatureCollection",
                 "features": [
-                {
-                  "type": "Feature",
-                  "properties": {},
-                  "id": 1,
-                  "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [
-                      [
+                  {
+                    "type": "Feature",
+                    "properties": {},
+                    "id": 1,
+                    "geometry": {
+                      "type": "Polygon",
+                      "coordinates": [
                         [
-                          -67.13734351262877,
-                          45.137451890638886
-                        ],
-                        [
-                          -67.79141211614706,
-                          45.702585354182816
-                        ],
-                        [
-                          -67.79035274928509,
-                          47.066248887716995
-                        ],
-                        [
-                          -68.23430497910454,
-                          47.35462921812177
-                        ],
-                        [
-                          -68.90478084987546,
-                          47.184794623394396
-                        ],
-                        [
-                          -69.23708614772835,
-                          47.44777598732787
-                        ],
-                        [
-                          -70.00014034695016,
-                          46.69317088478567
-                        ],
-                        [
-                          -70.30495378282376,
-                          45.914794623389355
-                        ],
-                        [
-                          -70.6600225491012,
-                          45.46022288673396
-                        ],
-                        [
-                          -71.08482,
-                          45.3052400000002
-                        ],
-                        [
-                          -70.94416541205806,
-                          43.46633942318431
-                        ],
-                        [
-                          -70.98176001655037,
-                          43.36789581966826
-                        ],
-                        [
-                          -70.79761105007827,
-                          43.21973948828747
-                        ],
-                        [
-                          -70.75102474636725,
-                          43.08003225358635
-                        ],
-                        [
-                          -70.64573401557249,
-                          43.090083319667144
-                        ],
-                        [
-                          -70.11617,
-                          43.68405
-                        ],
-                        [
-                          -69.06,
-                          43.98
-                        ],
-                        [
-                          -68.03252,
-                          44.3252
-                        ],
-                        [
-                          -66.96466,
-                          44.8097
-                        ],
-                        [
-                          -67.13734351262877,
-                          45.137451890638886
+                          [
+                            -67.13734351262877,
+                            45.137451890638886
+                          ],
+                          [
+                            -67.79141211614706,
+                            45.702585354182816
+                          ],
+                          [
+                            -67.79035274928509,
+                            47.066248887716995
+                          ],
+                          [
+                            -68.23430497910454,
+                            47.35462921812177
+                          ],
+                          [
+                            -68.90478084987546,
+                            47.184794623394396
+                          ],
+                          [
+                            -69.23708614772835,
+                            47.44777598732787
+                          ],
+                          [
+                            -70.00014034695016,
+                            46.69317088478567
+                          ],
+                          [
+                            -70.30495378282376,
+                            45.914794623389355
+                          ],
+                          [
+                            -70.6600225491012,
+                            45.46022288673396
+                          ],
+                          [
+                            -71.08482,
+                            45.3052400000002
+                          ],
+                          [
+                            -70.94416541205806,
+                            43.46633942318431
+                          ],
+                          [
+                            -70.98176001655037,
+                            43.36789581966826
+                          ],
+                          [
+                            -70.79761105007827,
+                            43.21973948828747
+                          ],
+                          [
+                            -70.75102474636725,
+                            43.08003225358635
+                          ],
+                          [
+                            -70.64573401557249,
+                            43.090083319667144
+                          ],
+                          [
+                            -70.11617,
+                            43.68405
+                          ],
+                          [
+                            -69.06,
+                            43.98
+                          ],
+                          [
+                            -68.03252,
+                            44.3252
+                          ],
+                          [
+                            -66.96466,
+                            44.8097
+                          ],
+                          [
+                            -67.13734351262877,
+                            45.137451890638886
+                          ]
                         ]
                       ]
-                    ]
-                  }
-                },
-                {
-                  "type": "Feature",
-                  "id": 2,
-                  "properties": {},
-                  "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [
-                      [
+                    }
+                  },
+                  {
+                    "type": "Feature",
+                    "id": 2,
+                    "properties": {},
+                    "geometry": {
+                      "type": "Polygon",
+                      "coordinates": [
                         [
-                          -71.8505859375,
-                          46.837649560937464
-                        ],
-                        [
-                          -71.707763671875,
-                          45.44471679159555
-                        ],
-                        [
-                          -67.24731445312499,
-                          45.68315803253308
-                        ],
-                        [
-                          -67.17041015625,
-                          46.882723010671945
-                        ],
-                        [
-                          -69.796142578125,
-                          47.212105775622426
-                        ],
-                        [
-                          -71.8505859375,
-                          46.837649560937464
+                          [
+                            -71.8505859375,
+                            46.837649560937464
+                          ],
+                          [
+                            -71.707763671875,
+                            45.44471679159555
+                          ],
+                          [
+                            -67.24731445312499,
+                            45.68315803253308
+                          ],
+                          [
+                            -67.17041015625,
+                            46.882723010671945
+                          ],
+                          [
+                            -69.796142578125,
+                            47.212105775622426
+                          ],
+                          [
+                            -71.8505859375,
+                            46.837649560937464
+                          ]
                         ]
                       ]
-                    ]
+                    }
                   }
-                }
-              ]
-            }
-          },
-          'layout': {},
-          'paint': {
-            'fill-color': [
-              'case',
-              ['boolean',
-                ['feature-state', 'hover'],
-                false
+                ]
+              }
+            },
+            'layout': {},
+            'paint': {
+              'fill-color': [
+                'case',
+                ['boolean',
+                  ['feature-state', 'hover'],
+                  false
+                ],
+                '#066',
+                '#088'
               ],
-              '#066',
-              '#088'
-            ],
               'fill-opacity': 0.8
+            }
           }
-        }]
+        ],
+        mapStyle: mapStyles[0],
+        hash,
+        center,
+        zoom,
+        container,
+        pitch,
+        data: null,
+        sourceCounter: 0
       }
     },
     methods: {
@@ -221,9 +249,11 @@
     },
     components: {
       TheMap,
-      MapboxLayer
+      MapboxLayer,
+      MapboxSource,
+      TheLayers
     },
-    mounted() {
+    async mounted() {
       /*
         If getting error here,
         then it should be handled by watching store state property
@@ -238,12 +268,70 @@
           e
         })
       });*/
+      let res = await axios.get('https://dtp-api.gov39.ru/api/dtp_cards_preview');
+
+      this.data = {
+        type: 'FeatureCollection',
+        features: res.data.map(item => {
+          const latLng = [item.lng, item.lat];
+          delete item.lat;
+          delete item.lng;
+          return {type: 'Feature', geometry: {type: 'Point', coordinates: latLng}, properties: {...item}, id: item.id}
+        }),
+      };
+
+      /*setTimeout(() => {
+        // this.layers.pop();
+        this.data = null;
+      }, 1000)*/
+
+      /*this.$store.state.map.addSource('dtp', {
+        type: 'geojson',
+// Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
+// from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+//         data: res.data,
+        data: {
+          type: 'FeatureCollection',
+          features: res.data.map(item => {
+            const latLng = [item.lng, item.lat];
+            delete item.lat;
+            delete item.lng;
+            return {type: 'Feature', geometry: {type: 'Point', coordinates: latLng}, properties: {...item}, id: item.id}
+          }),
+        },
+        // cluster: true,
+        // clusterMaxZoom: 14, // Max zoom to cluster points on
+        // clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+      });
+
+      this.$store.state.map.addLayer({
+        id: 'dtpCircle',
+        source: 'dtp',
+        type: 'circle',
+        paint: {
+          'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            8, 1,
+            17, 20,
+          ],
+          'circle-opacity': 0.8,
+          'circle-color': 'rgb(171, 72, 33)'
+        }
+      })*/
     }
   }
 </script>
 
 <style lang="scss">
-body {
-  margin: 0;
-}
+  body {
+    margin: 0;
+  }
+  :root {
+    font-size: 62.5%;
+    body {
+      margin: 0;
+      // Body font size 16px
+      font-size: 1.6rem;
+    }
+  }
 </style>

@@ -1,9 +1,16 @@
 /*eslint-disable*/
 export default {
-  addLayer({commit, state, rootState}, {layer, map}) {
+  addLayer({commit, state, rootState}, layer) {
     try {
-      if (rootState.map.instance.isStyleLoaded()) rootState.map.instance.addLayer(layer)
-      else console.warn('Couldn\'t add layer, map style is not loaded yet')
+      if (!layer.id) {
+        console.error('Layer has no id property');
+        return
+        /*TODO If layer id is not provided generate unique id*/
+      }
+      if (rootState.map.isStyleLoaded()) {
+        rootState.map.addLayer(layer);
+        commit('addLayer', layer.id)
+      } else console.warn('Couldn\'t add layer, map style is not loaded yet')
 
 
       /*map.addLayer(
@@ -47,7 +54,11 @@ export default {
 
 
     } catch (e) {
-      console.err(e);
+      console.error(e);
     }
+  },
+  removeLayer({commit, state, rootState}, layerId) {
+    rootState.map.removeLayer(layerId);
+    commit('removeLayer', layerId);
   }
 }
