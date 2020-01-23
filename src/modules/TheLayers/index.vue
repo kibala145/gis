@@ -24,7 +24,6 @@
     },
     methods: {
       handleChange(e) {
-        debugger
         this.$store.state.map.setLayoutProperty(
           'maine',
           'visibility',

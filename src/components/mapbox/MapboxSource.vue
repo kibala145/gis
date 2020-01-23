@@ -19,19 +19,35 @@
       data: {
         type: Object,
         default: () => ({})
+      },
+      tiles: {
+        type: Array,
+        default: () => []
+      },
+      tileSize: {
+        type: Number,
+        default: 256
       }
     },
-    mounted() {
-      this.$store.state.map.addSource(this.id, {
-        type: this.type,
-// Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-// from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//         data: res.data,
-        data: this.data,
-        // cluster: true,
-        // clusterMaxZoom: 14, // Max zoom to cluster points on
-        // clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
+    beforeMount() {
+      debugger
+      switch (this.type) {
+        case 'geojson':
+          this.$store.state.map.addSource(this.id, {
+            type: this.type,
+            data: this.data,
+          });
+          break;
+        case 'raster':
+          this.$store.state.map.addSource(this.id, {
+            type: this.type,
+            tiles: this.tiles,
+            tileSize: this.tileSize
+          });
+          break;
+        default:
+          break;
+      }
     },
     destroyed() {
       /*
@@ -39,7 +55,6 @@
         Layer component if using beforeDestroyed hook to remove layer from the map
         TODO if found robust solution provide it
       */
-      debugger
       this.$store.state.map.removeSource(this.id);
     }
   }

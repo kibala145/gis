@@ -9,9 +9,20 @@
       :pitch="pitch"
     >
       <mapbox-source
+        id="2"
+        type="raster"
+        :tiles="['https://img.nj.gov/imagerywms/Natural2015?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=Natural2015']"
+        :tileSize="256"
+      >
+        <mapbox-layer
+          :layer="{id: 'rasterlayer', type: 'raster'}"
+        />
+      </mapbox-source>
+      <mapbox-source
         v-if="data"
         id="1"
         :data="data"
+        type="geojson"
       >
         <mapbox-layer
           v-for="layer in layers"
@@ -29,7 +40,7 @@
 
 <script>
   /*eslint-disable*/
-  import TheMap from '@/modules/TheMap/';
+  import TheMap from '@/modules/TheMap/index';
   import MapboxLayer from '@/components/mapbox/MapboxLayer';
   import MapboxSource from '@/components/mapbox/MapboxSource';
   import TheLayers from '@/modules/TheLayers/';
@@ -208,11 +219,9 @@
     },
     methods: {
       clickHandler(e) {
-        debugger
         e
       },
       mousemoveHandler(e) {
-        debugger
         if (e.features.length > 0) {
           if (this.featureId) {
             e.target.removeFeatureState({
@@ -231,7 +240,6 @@
         }
       },
       mouseleaveHandler(e) {
-        debugger
         e.target.setFeatureState({
           source: 'maine',
           id: this.featureId
@@ -281,7 +289,7 @@
       };
 
       /*setTimeout(() => {
-        // this.layers.pop();
+        // this.mapData.pop();
         this.data = null;
       }, 1000)*/
 

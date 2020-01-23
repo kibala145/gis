@@ -9,6 +9,7 @@
 
 <script>
   /*eslint-disable*/
+
   import {Map, GeolocateControl, ScaleControl} from 'mapbox-gl';
 
   export default {
@@ -65,7 +66,6 @@
       }
     },
     mounted() {
-      debugger
       this.map = new Map({
         container: this.container, // container id
         hash: this.hash,
@@ -98,8 +98,10 @@
 
         this.map.addControl(geoControl);
       }*/
-
-      this.map.on('load', () => {debugger; this.loaded = true});
+      const self = this;
+      this.map.on('load', () => {
+        self.loaded = true
+      });
 
       this.$store.commit('initMap', this.map);
       this.$store.commit('setViewport', this.getViewport());

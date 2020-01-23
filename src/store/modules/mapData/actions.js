@@ -1,16 +1,25 @@
 /*eslint-disable*/
 export default {
   addLayer({commit, state, rootState}, layer) {
+    debugger
     try {
       if (!layer.id) {
         console.error('Layer has no id property');
         return
         /*TODO If layer id is not provided generate unique id*/
       }
-      if (rootState.map.isStyleLoaded()) {
+      rootState.map.addLayer(layer);
+      commit('addLayer', layer.id);
+      /*if (rootState.map.loaded()) {
         rootState.map.addLayer(layer);
-        commit('addLayer', layer.id)
-      } else console.warn('Couldn\'t add layer, map style is not loaded yet')
+        commit('addLayer', layer.id);
+      } else {
+        rootState.map.on('load', () => {
+          debugger
+          rootState.map.addLayer(layer);
+          commit('addLayer', layer.id)
+        })
+      }*/
 
 
       /*map.addLayer(

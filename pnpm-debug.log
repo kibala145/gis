@@ -1,0 +1,61 @@
+---
+  0 debug pnpm:scope: 
+    selected: 1
+    workspacePrefix: null
+  1 debug pnpm: 
+    isCaseSensitive: false
+    store: "/Users/ikibala/.pnpm-store/2"
+  2 debug pnpm:package-json: 
+    initial: 
+      name: "cgis-vue"
+      version: "0.1.0"
+      private: true
+      scripts: 
+        serve: "vue-cli-service serve"
+        build: "vue-cli-service build"
+        lint: "vue-cli-service lint"
+        i18n:report: "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
+      dependencies: 
+        @vue/composition-api: "^0.3.4"
+        axios: "^0.19.2"
+        core-js: "^3.4.4"
+        mapbox-gl: "^1.6.1"
+        vue: "^2.6.10"
+        vue-i18n: "^8.0.0"
+        vuex: "^3.1.2"
+      devDependencies: 
+        @vue/cli-plugin-babel: "^4.1.0"
+        @vue/cli-plugin-eslint: "^4.1.0"
+        @vue/cli-plugin-vuex: "^4.1.0"
+        @vue/cli-service: "^4.1.0"
+        babel-eslint: "^10.0.3"
+        eslint: "^5.16.0"
+        eslint-plugin-vue: "^5.0.0"
+        sass: "^1.23.7"
+        sass-loader: "^8.0.0"
+        vue-cli-plugin-i18n: "^0.6.0"
+        vue-template-compiler: "^2.6.10"
+      readme: "# cgis-vue\n\n## Project setup\n```\npnpm install\n```\n\n### Compiles and hot-reloads for development\n```\npnpm run serve\n```\n\n### Compiles and minifies for production\n```\npnpm run build\n```\n\n### Lints and fixes files\n```\npnpm run lint\n```\n\n### Customize configuration\nSee [Configuration Reference](https://cli.vuejs.org/config/).\n"
+      readmeFilename: "README.md"
+      gitHead: "65cd916731395b878130629bb84c280eca664a32"
+      description: "## Project setup ``` pnpm install ```"
+      _id: "cgis-vue@0.1.0"
+    prefix: "/Users/ikibala/WebstormProjects/gis"
+  3 debug pnpm:stage: 
+    prefix: "/Users/ikibala/WebstormProjects/gis"
+    stage: "resolution_started"
+  4 error pnpm: 
+    message: 
+      code: 128
+      stdout: ""
+      stderr: "git@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n"
+      failed: true
+      signal: null
+      cmd: "git ls-remote --refs git+ssh://git@github.com/regenerator-runtime/runtime.git master"
+      timedOut: false
+      killed: false
+    err: 
+      name: "Error"
+      message: "Command failed: git ls-remote --refs git+ssh://git@github.com/regenerator-runtime/runtime.git master\ngit@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n\n"
+      code: 128
+      stack: "Error: Command failed: git ls-remote --refs git+ssh://git@github.com/regenerator-runtime/runtime.git master\ngit@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.\n\nPlease make sure you have the correct access rights\nand the repository exists.\n\n\n    at makeError (/usr/local/lib/node_modules/pnpm/lib/node_modules/execa/index.js:174:9)\n    at /usr/local/lib/node_modules/pnpm/lib/node_modules/execa/index.js:278:16\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)\n    at async getRepoRefs (/usr/local/lib/node_modules/pnpm/lib/node_modules/@pnpm/git-resolver/lib/index.js:51:20)\n    at async resolveRef (/usr/local/lib/node_modules/pnpm/lib/node_modules/@pnpm/git-resolver/lib/index.js:65:18)\n    at async resolveGit (/usr/local/lib/node_modules/pnpm/lib/node_modules/@pnpm/git-resolver/lib/index.js:11:24)\n    at async Object.resolve (/usr/local/lib/node_modules/pnpm/lib/node_modules/@pnpm/default-resolver/lib/index.js:13:20)"
