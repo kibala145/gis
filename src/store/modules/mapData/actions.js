@@ -69,5 +69,16 @@ export default {
   removeLayer({commit, state, rootState}, layerId) {
     rootState.map.removeLayer(layerId);
     commit('removeLayer', layerId);
+  },
+  setBase({commit, state, rootState}, {sources, layers}) {
+    debugger
+    rootState.map.getStyle().layers.filter(item => item.source === 'base' || item.type === 'background').map(item => item.id).forEach(item => rootState.map.removeLayer(item));
+    rootState.map.removeSource('base');
+    rootState.map.addSource('base', sources.base);
+    if (layers.length > 1) {
+      const layerId = rootState.map.getStyle().layers[0].id;
+      layers.forEach(layer => rootState.map.addLayer(layer, layerId))
+    }
+    else rootState.map.addLayer(layers[0], rootState.map.getStyle().layers[0].id)
   }
 }

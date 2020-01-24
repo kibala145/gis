@@ -34,7 +34,7 @@
         />
       </mapbox-source>
     </the-map>
-    <the-layers />
+    <layers-control />
   </div>
 </template>
 
@@ -43,7 +43,7 @@
   import TheMap from '@/modules/TheMap/index';
   import MapboxLayer from '@/components/mapbox/MapboxLayer';
   import MapboxSource from '@/components/mapbox/MapboxSource';
-  import TheLayers from '@/modules/TheLayers/';
+  import LayersControl from '@/modules/LayersControl/';
   import {mapStyles, zoom, center, hash, container, pitch} from '@/config';
   import axios from 'axios'
   // import {mapState} from 'vuex';
@@ -259,7 +259,7 @@
       TheMap,
       MapboxLayer,
       MapboxSource,
-      TheLayers
+      LayersControl
     },
     async mounted() {
       /*

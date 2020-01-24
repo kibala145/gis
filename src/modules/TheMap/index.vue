@@ -100,7 +100,8 @@
       }*/
       const self = this;
       this.map.on('load', () => {
-        self.loaded = true
+        self.loaded = true;
+        this.$store.commit('setStyle', this.mapStyle);
       });
 
       this.$store.commit('initMap', this.map);

@@ -6,5 +6,8 @@ export default {
     const index = state.layers.indexOf(layerId);
 
     index !== -1 ? state.layers.splice(index, 1) : console.error('Couldn\'t remove layer, the given layerId couldn\'t be found')
+  },
+  setStyle(state, style) {
+    state.style = style;
   }
 }
