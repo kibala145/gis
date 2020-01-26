@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-map
+    <mapbox-map
       :container="container"
       :mapStyle="mapStyle"
       :hash="hash"
@@ -33,19 +33,20 @@
           @mouseleave="mouseleaveHandler"
         />
       </mapbox-source>
-    </the-map>
+    </mapbox-map>
     <layers-control />
   </div>
 </template>
 
 <script>
   /*eslint-disable*/
-  import TheMap from '@/modules/TheMap/index';
+  import MapboxMap from '@/components/mapbox/MapboxMap';
   import MapboxLayer from '@/components/mapbox/MapboxLayer';
   import MapboxSource from '@/components/mapbox/MapboxSource';
   import LayersControl from '@/modules/LayersControl/';
   import {mapStyles, zoom, center, hash, container, pitch} from '@/config';
   import axios from 'axios'
+  import {getProjects} from "./api";
   // import {mapState} from 'vuex';
 
   export default {
@@ -248,7 +249,8 @@
         });
         e.target.getCanvas().style.cursor = '';
         this.featureId = null;
-      }
+      },
+      getProjects
     },
     computed: {
       /*...mapState({
@@ -256,12 +258,13 @@
       })*/
     },
     components: {
-      TheMap,
+      MapboxMap,
       MapboxLayer,
       MapboxSource,
       LayersControl
     },
     async mounted() {
+      this.getProjects();
       /*
         If getting error here,
         then it should be handled by watching store state property

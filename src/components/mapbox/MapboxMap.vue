@@ -13,7 +13,7 @@
   import {Map, GeolocateControl, ScaleControl} from 'mapbox-gl';
 
   export default {
-    name: 'TheMap',
+    name: 'MapboxMap',
     props: {
       center: {
         type: Array,
