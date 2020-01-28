@@ -1,0 +1,39 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+message CommonResponse {
+    string status = 1;
+    string message = 2;
+    string data = 3;
+}
+
+message Id {
+    string id = 1;
+}
+
+message Ids {
+    repeated string ids = 1;
+}
+
+message Strings {
+    repeated string values = 1;
+}
+
+message Ok {
+    bool result = 1;
+}
+
+message Name {
+    string name = 1;
+}
+
+message Count {
+    int64 count = 1;
+}
+
+message Bytes {
+    bytes bytes = 1;
+}

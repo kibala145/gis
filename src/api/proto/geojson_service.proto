@@ -1,0 +1,20 @@
+syntax = "proto3";
+package service;
+
+import "common.proto";
+
+message FeatureCollection {
+    string feature_collection = 1;
+}
+
+message Feature {
+    string feature = 1;
+}
+
+service GeojsonService {
+
+    rpc FeatureCollectionToExcel(FeatureCollection) returns (Bytes){}
+
+    rpc FeatureToExcel(Feature) returns (Bytes){ }
+
+}

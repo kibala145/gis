@@ -1,0 +1,148 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Metadata service";
+        version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+        key: "404";
+        value: {
+            description: "Returned when the resource does not exist.";
+            schema: {
+                json_schema: {
+                    type: STRING;
+                }
+            }
+        }
+    }
+};
+
+message MetadataServiceRequest {
+    string data_source = 1;
+    string scheme = 2;
+    string table = 3;
+}
+
+message TableMetadata {
+    repeated ColumnMetadata columns_metadata = 1;
+}
+
+message ColumnMetadata {
+    string column_name = 1;
+    string data_type = 2;
+    string description = 3;
+}
+
+message GeometryTables {
+    repeated GeometryTable geometry_tables = 1;
+}
+
+message GeometryTable {
+    string table = 1;
+    string geometry_column = 2;
+    string srid = 3;
+}
+
+message MapViewerStyles {
+    repeated MapViewerStyle map_viewer_styles = 1;
+}
+
+message MapViewerStyle {
+    string name = 1;
+    string type = 2;
+    string description = 3;
+}
+
+message MapViewerThemes {
+    repeated MapViewerTheme map_viewer_themes = 1;
+}
+
+message MapViewerTheme {
+    string name = 1;
+    string base_table = 2;
+    string description = 3;
+    string geometry_column = 4;
+}
+
+message DataSources {
+    map<string, string> data_sources = 1;
+}
+
+service MetadataService {
+
+    rpc GetDataSourceReadOnlyTables(MetadataServiceRequest) returns (Strings){
+        option (google.api.http) = {
+            get: "/private/data-source/read-only-tables"
+        };
+    }
+
+    rpc GetDataSourceSchemes(MetadataServiceRequest) returns (Strings){
+        option (google.api.http) = {
+            get: "/private/data-source/schemes"
+        };
+    }
+
+    rpc GetSchemeReadOnlyTables(MetadataServiceRequest) returns (Strings){
+        option (google.api.http) = {
+            get: "/private/scheme/read-only-tables"
+        };
+    }
+
+    rpc GetSchemeReadWriteTables(MetadataServiceRequest) returns (Strings){
+        option (google.api.http) = {
+            get: "/private/scheme/read-write-tables"
+        };
+    }
+
+    rpc IsSchemeTableEditable(MetadataServiceRequest) returns (Ok){
+        option (google.api.http) = {
+            get: "/private/table/is-editable"
+        };
+    }
+
+    rpc GetSchemeSequences(MetadataServiceRequest) returns (Strings){
+        option (google.api.http) = {
+            get: "/private/scheme/sequences"
+        };
+    }
+
+    rpc GetTableColumnsMetadata(MetadataServiceRequest) returns (TableMetadata){
+        option (google.api.http) = {
+            get: "/private/table/columns-metadata"
+        };
+    }
+
+    rpc GetSchemeGeometryTables(MetadataServiceRequest) returns (GeometryTables){
+        option (google.api.http) = {
+            get: "/private/scheme/geometry-tables"
+        };
+    }
+
+    rpc GetDataSourceMapViewerStyles(MetadataServiceRequest) returns (MapViewerStyles){
+        option (google.api.http) = {
+            get: "/private/data-source/map-viewer-styles"
+        };
+    }
+
+    rpc GetDataSourceMapViewerThemes(MetadataServiceRequest) returns (MapViewerThemes){
+        option (google.api.http) = {
+            get: "/private/data-source/map-viewer-themes"
+        };
+    }
+
+    rpc GetDataSources(google.protobuf.Empty) returns (DataSources){
+        option (google.api.http) = {
+            get: "/private/data-sources"
+        };
+    }
+}

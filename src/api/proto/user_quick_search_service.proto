@@ -1,0 +1,94 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "User quick search service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message UserQuickSearch {
+	string id = 1;
+	string user_id = 2;
+	string project_id = 3;
+	bool is_default = 4;
+	string name = 5;
+	string quick_search = 6;
+	bool is_public = 7;
+}
+
+message UserQuickSearches {
+	repeated UserQuickSearch user_quick_searches = 1;
+}
+
+message UserQuickSearchId {
+	string user_id = 1;
+	string project_id = 2;
+}
+
+service UserQuickSearchService {
+
+	rpc CreateUserQuickSearch(UserQuickSearch) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            post: "/private/user-quick-searches"
+            body: "*"
+        };
+	}
+
+	rpc UpdateUserQuickSearch(UserQuickSearch) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            put: "/private/user-quick-searches"
+            body: "*"
+        };
+	}
+
+	rpc DeleteUserQuickSearch(Id) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            delete: "/private/user-quick-searches/{id}"
+        };
+	}
+
+	rpc GetUserQuickSearches(google.protobuf.Empty) returns (UserQuickSearches){
+		option (google.api.http) = {
+            get: "/private/user-quick-searches"
+        };
+	}
+
+	rpc GetUserQuickSearchesByUserId(UserQuickSearchId) returns (UserQuickSearches){
+		option (google.api.http) = {
+            get: "/private/user-quick-searches/user/{user_id}"
+        };
+	}
+
+	rpc GetUserQuickSearchesByProjectId(UserQuickSearchId) returns (UserQuickSearches){
+		option (google.api.http) = {
+            get: "/private/user-quick-searches/project/{project_id}"
+        };
+	}
+
+	rpc GetUserQuickSearchesByUserIdAndProjectId(UserQuickSearchId) returns (UserQuickSearches){
+		option (google.api.http) = {
+            get: "/private/user-quick-searches/user/{user_id}/project/{project_id}"
+        };
+	}
+}

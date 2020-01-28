@@ -1,0 +1,97 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Action log service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message ActionLog {
+	string id = 1;
+    string username = 2;
+    string action = 3;
+    string comment = 4;
+    string date = 5;
+}
+
+message ActionLogRequest {
+	string order_by = 1;
+	string order = 2;
+	string page = 3;
+	string size = 4;
+	repeated ActionLogFilter action_log_filters = 5;
+}
+
+message ActionLogFilter {
+	string name = 1;
+	string value = 2;
+	string field_type = 3;
+	string operator = 4;
+	string logical_statement = 5;
+	int64 priority = 6;
+}
+
+message ActionLogResponse {
+	repeated ActionLog action_logs = 1;
+}
+
+service ActionLogService {
+
+	rpc CreateActionLog(ActionLog) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            post: "/private/action-logs"
+            body: "*"
+        };
+	}
+
+	rpc GetUserActionLogs(Name) returns (ActionLogResponse){
+		option (google.api.http) = {
+            get: "/private/action-logs/user/{name}"
+        };
+	}
+
+	rpc GetActionLogs(google.protobuf.Empty) returns (ActionLogResponse){
+		option (google.api.http) = {
+            get: "/private/action-logs"
+        };
+	}
+
+	rpc GetFilteredActionLogsCount(ActionLogRequest) returns (Count){
+		option (google.api.http) = {
+            post: "/private/action-logs/filtered/count"
+            body: "*"
+        };
+	}
+
+	rpc GetFilteredActionLogs(ActionLogRequest) returns (ActionLogResponse){
+		option (google.api.http) = {
+            post: "/private/action-logs/filtered"
+            body: "*"
+        };
+	}
+
+	rpc GetActionLogsExcel(google.protobuf.Empty) returns (Bytes) {}
+
+	rpc GetFilteredActionLogsExcel(ActionLogRequest) returns (Bytes) {}
+}

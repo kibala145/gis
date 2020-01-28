@@ -1,0 +1,83 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "User query service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message UserQuery {
+	string id = 1;
+	string user_id = 2;
+	string project_id = 3;
+	int64 query_type = 4;
+	string query = 5;
+	string name = 6;
+	string description = 7;
+}
+
+message UserQueries {
+	repeated UserQuery user_queries = 1;
+}
+
+message UserQueryId {
+	string user_id = 1;
+	string project_id = 2;
+	int64 query_type = 3;
+}
+
+service UserQueryService {
+
+	rpc CreateUserQuery(UserQuery) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            post: "/private/user-queries"
+            body: "*"
+        };
+	}
+
+	rpc UpdateUserQuery(UserQuery) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            put: "/private/user-queries"
+            body: "*"
+        };
+	}
+
+	rpc DeleteUserQuery(Id) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            delete: "/private/user-queries/{id}"
+        };
+	}
+
+	rpc GetUserQueriesByUserIdAndProjectId(UserQueryId) returns (UserQueries){
+		option (google.api.http) = {
+            get: "/private/user-queries/user/{user_id}/project/{project_id}"
+        };
+	}
+
+	rpc GetUserQueriesByUserIdAndProjectIdAndQueryType(UserQueryId) returns (UserQueries){
+		option (google.api.http) = {
+            get: "/private/user-queries/user/{user_id}/project/{project_id}/query-type/{query_type}"
+        };
+	}
+}

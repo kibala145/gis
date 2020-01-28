@@ -1,3 +1,4 @@
+/*eslint-disable*/
 // source: google/protobuf/empty.proto
 /**
  * @fileoverview

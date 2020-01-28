@@ -1,0 +1,78 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "User service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message User {
+    string id = 1;
+    string name = 2;
+    string password = 3;
+    bool enabled = 4;
+    string default_project_id = 5;
+    string registration_date = 6;
+    string email = 7;
+    string info = 8;
+    string image = 9;
+    string registered_via = 10;
+}
+
+message Users {
+    repeated User users = 1;
+}
+
+service UserService {
+
+    rpc GetUserById(Id) returns (User){
+        option (google.api.http) = {
+            get: "/private/users/id/{id}"
+        };
+    }
+
+    rpc GetUserByName(Name) returns (User){
+        option (google.api.http) = {
+            get: "/private/users/name/{name}"
+        };
+    }
+
+    rpc IsUserExists(Name) returns (Ok){
+        option (google.api.http) = {
+            get: "/private/users/name/{name}/is-exists"
+        };
+    }
+
+    rpc GetUsers(google.protobuf.Empty) returns (Users){
+        option (google.api.http) = {
+            get: "/private/users"
+        };
+    }
+
+    rpc GetLoggedUser(google.protobuf.Empty) returns (User){
+        option (google.api.http) = {
+            get: "/private/users/logged"
+        };
+    }
+}

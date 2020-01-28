@@ -1,0 +1,58 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Authentication service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message AuthenticationRequest {
+    string grant_type = 1;
+    string username = 2;
+    string cuba_token = 3;
+    string refresh_token = 4;
+    string password = 5;
+}
+
+message AuthenticationResponse {
+    string access_token = 1;
+    string token_type = 2;
+    string refresh_token = 3;
+    int32 expires_in = 4;
+}
+
+service AuthenticationService {
+
+    rpc OAuthToken(AuthenticationRequest) returns (AuthenticationResponse){
+        option (google.api.http) = {
+            post: "/oauth/token"
+            body: "*"
+        };
+    }
+
+    rpc OAuthLogout(google.protobuf.Empty) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            get: "/oauth/logout"
+        };
+    }
+}

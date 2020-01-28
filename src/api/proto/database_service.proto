@@ -1,0 +1,333 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "project_service.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Database service";
+        version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+        key: "404";
+        value: {
+            description: "Returned when the resource does not exist.";
+            schema: {
+                json_schema: {
+                    type: STRING;
+                }
+            }
+        }
+    }
+};
+
+message AttributeSearchRequest {
+    string data_source = 1;
+    string theme_srid = 2;
+    string in_srid = 3;
+    string out_srid = 4;
+    string attribute_table = 5;
+    string attribute_id_column = 6;
+    string attribute_link_geometry_column = 7;
+    string geometry_table = 8;
+    string geometry_id_column = 9;
+    string geometry_column = 10;
+    string link_table = 11;
+    string link_table_geometry_id_column = 12;
+    string link_table_attribute_id_column = 13;
+    bool with_geometry = 14;
+    string row_limit = 15;
+    repeated SelectColumn select_columns = 16;
+    repeated WhereStatement where_statements = 17;
+    repeated SpatialStatement spatial_statements = 18;
+    string theme_id = 19;
+    string theme_name = 20;
+    string theme_label = 21;
+    string theme_is_exportable = 22;
+}
+
+message SelectColumn {
+    string id = 1;
+    string name = 2;
+    string label = 3;
+    string type = 4;
+    string control_type = 5;
+    string reference_table = 6;
+    string reference_join_column = 7;
+    string reference_select_column = 8;
+    string aggregate_function = 9;
+    int32 pos = 10;
+}
+
+message WhereStatement {
+    string name = 1;
+    string type = 2;
+    string operator = 3;
+    repeated string value = 4;
+    string logical_statement = 5;
+}
+
+message SpatialStatement {
+    string wkt_geometry = 1;
+    string row_limit = 2;
+    string distance = 3;
+    string operator = 4;
+    string layer_srid = 5;
+}
+
+message AttributeSearchResponse {
+    string theme_id = 1;
+    string theme_label = 2;
+    string theme_name = 3;
+    string theme_is_exportable = 4;
+    repeated AttributeSearchColumnHeader column_headers = 5;
+    repeated AttributeSearchObject objects = 6;
+}
+
+message AttributeSearchColumnHeader {
+    string label = 1;
+    string type = 2;
+}
+
+message AttributeSearchObject {
+    string id = 1;
+    string geometry_id = 2;
+    string attribute_id = 3;
+    string wkt_geometry = 4;
+    string distance = 5;
+    string theme_id = 6;
+    repeated AttributeSearchColumn columns = 7;
+}
+
+message AttributeSearchColumn {
+    string name = 1;
+    string label = 2;
+    string value = 3;
+    string control_type = 4;
+}
+
+message InfoClickRequest {
+    double click_lat = 1;
+    double click_lng = 2;
+    string project_id = 3;
+    string theme_id = 4;
+    string out_srid = 5;
+    string in_srid = 6;
+    int64 radius = 7;
+}
+
+message InfoClickResponse {
+    repeated InfoClickObject objects = 1;
+}
+
+message InfoClickObject {
+    string theme_id = 1;
+    string theme_name = 2;
+    string theme_group_name = 3;
+    bool theme_is_editable = 4;
+    bool theme_is_exportable = 5;
+    string theme_data_source = 6;
+    string theme_geometry_id = 7;
+    string theme_attribute_id = 8;
+    string theme_wkt_geometry = 9;
+    repeated PortalAction theme_portal_actions = 10;
+    repeated InfoClickColumn columns = 11;
+    double click_lng = 12;
+    double click_lat = 13;
+    string out_srid = 14;
+}
+
+message InfoClickColumn {
+    string value = 1;
+    string label = 2;
+    string type = 3;
+    string control_type = 4;
+}
+
+message BufferGeometryRequest {
+    string data_source = 1;
+    string geometry_table = 2;
+    string geometry_column = 3;
+    string attribute_column = 4;
+    string attribute_value = 5;
+    string buffer_distance = 6;
+    int64 geometry_dimension = 7;
+    string theme_srid = 8;
+    string out_srid = 9;
+}
+
+message BufferGeometryResponse {
+    string wkt_geometry = 1;
+}
+
+message BufferGeometryAroundWktRequest {
+    string wkt_geometry = 1;
+    string distance = 2;
+    string data_source = 3;
+}
+
+message InvokeMethodRequest {
+    string method_name = 1;
+    MethodType method_type = 2;
+    string data_source = 3;
+    repeated string method_parameters = 4;
+}
+
+message DatabaseOperationRequest {
+    string data_source = 1;
+    string table = 2;
+    string sequencer = 3;
+    string operation = 4;
+    string primary_key = 5;
+    string primary_key_value = 6;
+    string primary_key_type = 7;
+    string select_where_expression = 8;
+    string row_limit = 9;
+    string db_srid = 10;
+    string in_srid = 11;
+    string out_srid = 12;
+    bool is_distinct = 13;
+    int64 geometry_dimension = 14;
+    repeated AttributeRow attribute_rows = 15;
+}
+
+message AttributeRow {
+    repeated Attribute attributes = 1;
+}
+
+message Attribute {
+    string name = 1;
+    string value = 2;
+    string type = 3;
+}
+
+message DatabaseSelectOperationResponse {
+    repeated DatabaseSelectOperationObject rows = 1;
+}
+
+message DatabaseSelectOperationObject {
+    map<string, string> row = 1;
+}
+
+enum MethodType {
+    PROCEDURE = 0;
+    FUNCTION = 1;
+}
+
+message BindAttributeAndGeometryRequest {
+    string data_source = 1;
+    string db_srid = 2;
+    string in_srid = 3;
+    string attribute_table = 4;
+    string attribute_id_column = 5;
+    string attribute_id_value = 6;
+    string attribute_link_geometry_column = 7;
+    string attribute_link_geometry_value = 8;
+    string attribute_sequencer = 9;
+    repeated Attribute attribute_insert_row = 10;
+    string geometry_table = 11;
+    string geometry_id_column = 12;
+    string geometry_id_value = 13;
+    string geometry_sequencer = 14;
+    int64 geometry_dimension = 15;
+    repeated Attribute geometry_insert_row = 16;
+    string link_table = 17;
+    string link_table_geometry_id_column = 18;
+    string link_table_attribute_id_column = 19;
+    bool insert_attribute = 20;
+    bool insert_geometry = 21;
+    bool with_link_table = 22;
+}
+
+message ReferenceValuesRequest {
+    string reference_table = 1;
+    string reference_id_column = 2;
+    string reference_display_column = 3;
+    string data_source = 4;
+}
+
+service DatabaseService {
+
+    rpc AttributeSearch(AttributeSearchRequest) returns (AttributeSearchResponse){
+        option (google.api.http) = {
+            post: "/private/database/attribute-search"
+            body: "*"
+        };
+    }
+
+    rpc PublicInfoClick(InfoClickRequest) returns (InfoClickResponse){
+        option (google.api.http) = {
+            post: "/public/database/info-click"
+            body: "*"
+        };
+    }
+
+    rpc InfoClick(InfoClickRequest) returns (InfoClickResponse){
+        option (google.api.http) = {
+            post: "/private/database/info-click"
+            body: "*"
+        };
+    }
+
+    rpc BufferGeometry(BufferGeometryRequest) returns (BufferGeometryResponse){
+        option (google.api.http) = {
+            post: "/private/database/buffer-geometry"
+            body: "*"
+        };
+    }
+
+    rpc BufferGeometryAroundWkt(BufferGeometryAroundWktRequest) returns (BufferGeometryResponse){
+        option (google.api.http) = {
+            post: "/private/database/buffer-geometry-around-wkt"
+            body: "*"
+        };
+    }
+
+    rpc InvokeDatabaseMethod(InvokeMethodRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/private/database/invoke-method"
+            body: "*"
+        };
+    }
+
+    rpc DatabaseUpdateOperation(DatabaseOperationRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/private/database/update-operation"
+            body: "*"
+        };
+    }
+
+    rpc DatabaseSelectOperation(DatabaseOperationRequest) returns (DatabaseSelectOperationResponse){
+        option (google.api.http) = {
+            post: "/private/database/select-operation"
+            body: "*"
+        };
+    }
+
+    rpc BindAttributeWithGeometry(BindAttributeAndGeometryRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/private/database/attribute-with-geometry/bind"
+            body: "*"
+        };
+    }
+
+    rpc UnbindAttributeWithGeometry(BindAttributeAndGeometryRequest) returns (CommonResponse){
+        option (google.api.http) = {
+            post: "/private/database/attribute-with-geometry/unbind"
+            body: "*"
+        };
+    }
+
+    rpc GetReferenceValues(ReferenceValuesRequest) returns (DatabaseSelectOperationResponse){
+        option (google.api.http) = {
+            post: "/private/database/reference-values"
+            body: "*"
+        };
+    }
+}

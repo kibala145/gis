@@ -208,7 +208,14 @@
             }
           }
         ],
-        mapStyle: mapStyles[0],
+        // mapStyle: mapStyles[0],
+        mapStyle: {
+          "version":8,
+          "name":"base",
+          "sources": {},
+          layers: [],
+
+        },
         hash,
         center,
         zoom,

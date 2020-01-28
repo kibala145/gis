@@ -1,0 +1,75 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Group service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message Group {
+    string id = 1;
+    string name = 2;
+    string short_name = 3;
+}
+
+message Groups {
+    repeated Group groups = 1;
+}
+
+message GroupResponse {
+    map<string, string> values = 1;
+}
+
+service GroupService {
+
+	rpc GetGroupById(Id) returns (Group){
+		option (google.api.http) = {
+            get: "/private/groups/id/{id}"
+        };
+	}
+
+	rpc GetGroupByName(Name) returns (Group){
+		option (google.api.http) = {
+            get: "/private/groups/name/{name}"
+        };
+	}
+
+	rpc GetGroups(google.protobuf.Empty) returns (Groups){
+		option (google.api.http) = {
+            get: "/private/groups"
+        };
+	}
+
+    rpc GetGroupProjects(Id) returns (GroupResponse){
+		option (google.api.http) = {
+            get: "/private/groups/{id}/projects"
+        };
+	}
+
+	rpc GetGroupUsers(Id) returns (GroupResponse){
+		option (google.api.http) = {
+            get: "/private/groups/{id}/users"
+        };
+	}
+}

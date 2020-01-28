@@ -1,0 +1,331 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Project service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message Project {
+    string project_title = 1;
+    string project_icon = 2;
+    MapPart map_part = 3;
+    ApplicationPart application_part = 4;
+    repeated PortalAction portal_actions = 5;
+}
+
+message MapPart {
+    MapPositioning map_positioning = 1;
+    string google_analytics_id = 2;
+    string yandex_metrika_id = 3;
+    string base_srid = 4;
+    bool search_only_visible = 5;
+    repeated ThemeGroup theme_groups = 6;
+    string country = 7;
+    repeated SpatialServer spatial_servers = 8;
+    SearchEngines search_engines = 9;
+    bool geolocation = 10;
+    string cadastre_prefix = 11;
+    repeated TemporalThemeLayer time_series = 12;
+    SelectionStyle selection_style = 13;
+}
+
+message MapPositioning {
+    double center_lat = 1;
+    double center_lng = 2;
+    double zoom = 3;
+    double north_east_lat = 4;
+    double north_east_lng = 5;
+    double south_west_lat = 6;
+    double south_west_lng = 7;
+}
+
+message ThemeGroup {
+    string id = 1;
+    string label = 2;
+    repeated ThemeGroup theme_groups = 3;
+    repeated ThemeLayer theme_layers = 4;
+}
+
+message ThemeLayer {
+    string id = 1;
+    ThemeServerOptions theme_server_options = 2;
+    bool searchable = 3;
+    bool editable = 4;
+    bool exportable = 5;
+    bool visible = 6;
+    bool is_wfs = 7;
+    bool has_data = 8;
+    bool quick_search = 9;
+    bool is_time = 10;
+    MapEngines map_engines = 11;
+    string name = 12;
+    string label = 13;
+    string description = 14;
+    string time = 15;
+    string style = 16;
+    string info_click_target_unit = 17;
+    double info_click_target_size = 18;
+    double show_on_map_zoom = 19;
+    double tile_size = 20;
+    double min_scale = 21;
+    double max_scale = 22;
+    double index = 23;
+    string legend_icon_url = 24;
+    string server_url = 25;
+    string wms_server = 26;
+    string data_source = 27;
+    string map_viewer_data_source = 28;
+    string scheme_name = 29;
+    string srid = 30;
+    string geometry_table = 31;
+    string geometry_column = 32;
+    string geometry_id_column = 33;
+    string geometry_table_sequencer = 34;
+    string geometry_type = 35;
+    double geometry_dimension = 36;
+    string attribute_table = 37;
+    string attribute_id_column = 38;
+    string geometry_attribute_link_table = 39;
+    string geometry_attribute_link_column = 40;
+    string link_table_geometry_id_column = 41;
+    string link_table_attribute_id_column = 42;
+    repeated PortalAction portal_actions = 43;
+    repeated ThemeInfoField theme_info_fields = 44;
+}
+
+message ThemeServerOptions {
+    string name = 1;
+    string type = 2;
+}
+
+message MapEngines {
+    bool leaflet = 1;
+    bool cesium = 2;
+}
+
+message PortalAction {
+    string id = 1;
+    string name = 2;
+    string tooltip = 3;
+    string function = 4;
+    string platform = 5;
+    string icon = 6;
+    string icon_type = 7;
+    repeated string user_groups = 8;
+    bool on_screen = 9;
+}
+
+message ThemeInfoField {
+    string id = 1;
+    string label = 2;
+    string column = 3;
+    string column_type = 4;
+    string control_type = 5;
+    string reference_table = 6;
+    string reference_id_column = 7;
+    string reference_display_column = 8;
+    bool quick_search = 9;
+    bool is_required = 10;
+    bool is_read_only = 11;
+    int32 pos = 12;
+}
+
+message TemporalThemeLayer {
+    string id = 1;
+    string label = 2;
+    string data_source = 3;
+    string scheme_name = 4;
+    string geometry_table = 5;
+    string geometry_id_column = 6;
+    string geometry_column = 7;
+    string temporal_start_column = 8;
+    string temporal_end_column = 9;
+    string time_series_start = 10;
+    string time_series_end = 11;
+    SelectionStyle selection_style = 12;
+    string description = 13;
+    repeated TemporalThemeAttribute attributes = 14;
+}
+
+message TemporalThemeAttribute {
+    string name = 1;
+    string label = 2;
+}
+
+message SelectionStyle {
+    bool stroke = 1;
+    string color = 2;
+    int64 weight = 3;
+    double opacity = 4;
+    string line_cap = 5;
+    string line_join = 6;
+    string dash_array = 7;
+    string dash_offset = 8;
+    bool fill = 9;
+    string fill_color = 10;
+    double fill_opacity = 11;
+    string fill_rule = 12;
+    bool bubbling_mouse_events = 13;
+    bool interactive = 14;
+    string pane = 15;
+}
+
+message SpatialServer {
+    string name = 1;
+    string uri = 2;
+    string username = 3;
+    string password = 4;
+    bool is_secure = 5;
+}
+
+message SearchEngines {
+    bool yandex = 1;
+    bool rosreestr = 2;
+    bool google = 3;
+    bool osm = 4;
+    bool quick_search = 5;
+}
+
+message ApplicationPart {
+    string path = 1;
+    repeated ApplicationGroup application_groups = 2;
+}
+
+message ApplicationGroup {
+    string id = 1;
+    string label = 2;
+    repeated ApplicationModule application_modules = 3;
+}
+
+message ApplicationModule {
+    string id = 1;
+    string label = 2;
+    string css = 3;
+    string init_event = 4;
+    bool to_cache = 5;
+    string js = 6;
+}
+
+message ThemeLayerDescriptions {
+    repeated ThemeLayerDescription theme_layer_descriptions = 1;
+}
+
+message ThemeLayerDescription {
+    string project_id = 1;
+    string project_name = 2;
+    string theme_id = 3;
+    string theme_name = 4;
+    string theme_description = 5;
+}
+
+message ThemeLayers {
+    repeated ThemeLayerResponse theme_layers = 1;
+}
+
+message ThemeLayerResponse {
+    string project_name = 1;
+    ThemeLayer theme_layer = 2;
+}
+
+message ProjectThemeLayerId {
+    string project_id = 1;
+    string theme_layer_id = 2;
+}
+
+message OldProject {
+    string id = 1;
+    string name = 2;
+    string project = 3;
+    string locale = 4;
+    string analytics = 5;
+    bool is_default = 6;
+    bool is_invalid = 7;
+    bool is_template = 8;
+    bool has_api = 9;
+    int64 index = 10;
+}
+
+service ProjectService {
+
+    rpc GetPublicUserOldProjects(google.protobuf.Empty) returns (Ids){
+        option (google.api.http) = {
+            get: "/public/old/projects/user/anonymous"
+        };
+    }
+
+    rpc GetPublicProjectFromOldById(Id) returns (Project){
+        option (google.api.http) = {
+            get: "/public/old-to-new/projects/{id}"
+        };
+    }
+
+    rpc GetPublicMapPartFromOldById(Id) returns (MapPart){
+        option (google.api.http) = {
+            get: "/public/old-to-new/projects/{id}/map-part"
+        };
+    }
+
+    rpc GetUserOldProjects(google.protobuf.Empty) returns (Ids){
+        option (google.api.http) = {
+            get: "/private/old/projects/user/logged"
+        };
+    }
+
+    rpc GetProjectFromOldById(Id) returns (Project){
+        option (google.api.http) = {
+            get: "/private/old-to-new/projects/{id}"
+        };
+    }
+
+    rpc GetMapPartFromOldById(Id) returns (MapPart){
+        option (google.api.http) = {
+            get: "/private/old-to-new/projects/{id}/map-part"
+        };
+    }
+
+    rpc GetOldProjects(google.protobuf.Empty) returns (Ids){
+        option (google.api.http) = {
+            get: "/private/old/projects"
+        };
+    }
+
+    rpc GetThemeLayerFromOldById(ProjectThemeLayerId) returns (ThemeLayer){
+        option (google.api.http) = {
+            get: "/private/old-to-new/projects/{project_id}/theme-layers/{theme_layer_id}"
+        };
+    }
+
+    rpc GetThemeLayerDescriptionsFromOld(google.protobuf.Empty) returns (ThemeLayerDescriptions){
+        option (google.api.http) = {
+            get: "/private/old-to-new/theme-layer-descriptions"
+        };
+    }
+
+    rpc GetThemeLayersFromOld(google.protobuf.Empty) returns (ThemeLayers){
+        option (google.api.http) = {
+            get: "/private/old-to-new/theme-layers"
+        };
+    }
+}

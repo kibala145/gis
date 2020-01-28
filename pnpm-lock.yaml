@@ -1,24 +1,28 @@
 dependencies:
-  '@vue/composition-api': 0.3.4
+  '@vue/composition-api': 0.3.4_vue@2.6.11
   axios: 0.19.2
   core-js: 3.6.4
-  mapbox-gl: 1.6.1
+  google-protobuf: 3.11.2
+  grpc-web: 1.0.7
+  mapbox-gl: 1.6.1_mapbox-gl@1.6.1
   vue: 2.6.11
   vue-i18n: 8.15.3
   vuex: 3.1.2
 devDependencies:
-  '@vue/cli-plugin-babel': 4.1.2
-  '@vue/cli-plugin-eslint': 4.1.2
-  '@vue/cli-plugin-vuex': 4.1.2
-  '@vue/cli-service': 4.1.2
-  babel-eslint: 10.0.3
+  '@vue/cli-plugin-babel': 4.1.2_@vue+cli-service@4.1.2
+  '@vue/cli-plugin-eslint': 4.1.2_24f387d243024b6d224425483548dff1
+  '@vue/cli-plugin-vuex': 4.1.2_@vue+cli-service@4.1.2
+  '@vue/cli-service': 4.1.2_eec96c8c178ac9f338a851c8d889100c
+  babel-eslint: 10.0.3_eslint@5.16.0
+  closure-webpack-plugin: 2.2.1_9762beb8d0ca973552f2bdcde7cb9f46
   eslint: 5.16.0
-  eslint-plugin-vue: 5.2.3
+  eslint-plugin-vue: 5.2.3_eslint@5.16.0
+  google-closure-compiler: 20200112.0.0
   sass: 1.25.0
-  sass-loader: 8.0.2
+  sass-loader: 8.0.2_sass@1.25.0
   vue-cli-plugin-i18n: 0.6.1
   vue-template-compiler: 2.6.11
-lockfileVersion: 5
+lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.8.3:
     dependencies:
@@ -939,7 +943,9 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-zlblOfg1UrWNENZy6k1vya3HsjQ=
-  /@mapbox/mapbox-gl-supported/1.4.1:
+  /@mapbox/mapbox-gl-supported/1.4.1_mapbox-gl@1.6.1:
+    dependencies:
+      mapbox-gl: 1.6.1_mapbox-gl@1.6.1
     dev: false
     peerDependencies:
       mapbox-gl: '>=0.32.1 <2.0.0'
@@ -1124,10 +1130,11 @@ packages:
     dev: true
     resolution:
       integrity: sha512-d+joLTtthj6l1JnCeFyJRKoISBQeqKZQY0EIYnJBcPPR3/dEKctMRkh5Sy1MR0H1JQQIko9CPrFjT/NHFW48Mg==
-  /@vue/cli-plugin-babel/4.1.2:
+  /@vue/cli-plugin-babel/4.1.2_@vue+cli-service@4.1.2:
     dependencies:
       '@babel/core': 7.8.3
       '@vue/babel-preset-app': 4.1.2
+      '@vue/cli-service': 4.1.2_eec96c8c178ac9f338a851c8d889100c
       '@vue/cli-shared-utils': 4.1.2
       babel-loader: 8.0.6_@babel+core@7.8.3+webpack@4.41.5
       cache-loader: 4.1.0_webpack@4.41.5
@@ -1138,10 +1145,12 @@ packages:
       '@vue/cli-service': ^3.0.0 || ^4.0.0-0
     resolution:
       integrity: sha512-/j998Q16h8gbYcYf2sE+CYobCpIzDYtOJ76JuhJZnCfy5H8gh4g+x5fepbLs0gOW/cZ2OQxJFx7Jd/yT2/G/qQ==
-  /@vue/cli-plugin-eslint/4.1.2:
+  /@vue/cli-plugin-eslint/4.1.2_24f387d243024b6d224425483548dff1:
     dependencies:
+      '@vue/cli-service': 4.1.2_eec96c8c178ac9f338a851c8d889100c
       '@vue/cli-shared-utils': 4.1.2
-      eslint-loader: 2.2.1_webpack@4.41.5
+      eslint: 5.16.0
+      eslint-loader: 2.2.1_eslint@5.16.0+webpack@4.41.5
       globby: 9.2.0
       webpack: 4.41.5_webpack@4.41.5
       yorkie: 2.0.0
@@ -1151,27 +1160,30 @@ packages:
       eslint: '>= 1.6.0'
     resolution:
       integrity: sha512-j6Z6tyhas7AFBwSvQ8JdKPLfaakZbwmK0+Xk8H6BK1/GrEpSCsb8pzBV8faStbKCPUO9vlKEuO319kHypUTJ1g==
-  /@vue/cli-plugin-router/4.1.2:
+  /@vue/cli-plugin-router/4.1.2_@vue+cli-service@4.1.2:
     dependencies:
+      '@vue/cli-service': 4.1.2_eec96c8c178ac9f338a851c8d889100c
       '@vue/cli-shared-utils': 4.1.2
     dev: true
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0-0
     resolution:
       integrity: sha512-P1OwZfskUzs8KoQDozT+TfSKREMB8NpJ34raor8CiXtM80pdaNU+mO1HLOvl9ckaOWbAgNrxFmANiSBvHzSo+w==
-  /@vue/cli-plugin-vuex/4.1.2:
+  /@vue/cli-plugin-vuex/4.1.2_@vue+cli-service@4.1.2:
+    dependencies:
+      '@vue/cli-service': 4.1.2_eec96c8c178ac9f338a851c8d889100c
     dev: true
     peerDependencies:
       '@vue/cli-service': ^3.0.0 || ^4.0.0-0
     resolution:
       integrity: sha512-qsf8sfUUtTuFf24iB6vbdapvCTCt4FqLj7r66POutGWmBCTlPHsMaAXMaD2ZD53/hqr8QHd/557IUensSwj5wA==
-  /@vue/cli-service/4.1.2:
+  /@vue/cli-service/4.1.2_eec96c8c178ac9f338a851c8d889100c:
     dependencies:
       '@intervolga/optimize-cssnano-plugin': 1.0.6_webpack@4.41.5
       '@soda/friendly-errors-webpack-plugin': 1.7.1_webpack@4.41.5
       '@vue/cli-overlay': 4.1.2
-      '@vue/cli-plugin-router': 4.1.2
-      '@vue/cli-plugin-vuex': 4.1.2
+      '@vue/cli-plugin-router': 4.1.2_@vue+cli-service@4.1.2
+      '@vue/cli-plugin-vuex': 4.1.2_@vue+cli-service@4.1.2
       '@vue/cli-shared-utils': 4.1.2
       '@vue/component-compiler-utils': 3.1.1
       '@vue/preload-webpack-plugin': 1.1.1_8a7c8ee8ba413222bba65216e786558e
@@ -1208,12 +1220,14 @@ packages:
       portfinder: 1.0.25
       postcss-loader: 3.0.0
       read-pkg: 5.2.0
+      sass-loader: 8.0.2_sass@1.25.0
       ssri: 7.1.0
       terser-webpack-plugin: 2.3.2_webpack@4.41.5
       thread-loader: 2.1.3_webpack@4.41.5
       url-loader: 2.3.0_file-loader@4.3.0+webpack@4.41.5
-      vue-loader: 15.8.3_css-loader@3.4.2+webpack@4.41.5
+      vue-loader: 15.8.3_e01023bcd933f6eb395a4ca239b93700
       vue-style-loader: 4.1.2
+      vue-template-compiler: 2.6.11
       webpack: 4.41.5_webpack@4.41.5
       webpack-bundle-analyzer: 3.6.0
       webpack-chain: 6.3.0
@@ -1224,7 +1238,24 @@ packages:
       node: '>=8'
     hasBin: true
     peerDependencies:
+      '@vue/cli-service': '*'
+      less-loader: '*'
+      pug-plain-loader: '*'
+      raw-loader: '*'
+      sass-loader: '*'
+      stylus-loader: '*'
       vue-template-compiler: ^2.0.0
+    peerDependenciesMeta:
+      less-loader:
+        optional: true
+      pug-plain-loader:
+        optional: true
+      raw-loader:
+        optional: true
+      sass-loader:
+        optional: true
+      stylus-loader:
+        optional: true
     resolution:
       integrity: sha512-ljJ3qoR5NNHuG0HPqQyfO3xa4Ti5zCSmHp0tDYxgiVz1vMDvzPXBhGBGsc2Y1HH71BUyx3Ei+H7mWdML/+Bm9Q==
   /@vue/cli-shared-utils/4.1.2:
@@ -1258,9 +1289,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-+lN3nsfJJDGMNz7fCpcoYIORrXo0K3OTsdr8jCM7FuqdI4+70TY6gxY6viJ2Xi1clqyPg7LpeOWwjF31vSMmUw==
-  /@vue/composition-api/0.3.4:
+  /@vue/composition-api/0.3.4_vue@2.6.11:
     dependencies:
       tslib: 1.10.0
+      vue: 2.6.11
     dev: false
     peerDependencies:
       vue: ^2.5.22
@@ -1427,6 +1459,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==
+  /acorn-dynamic-import/2.0.2:
+    dependencies:
+      acorn: 4.0.13
+    dev: true
+    resolution:
+      integrity: sha1-x1K9IQvvZ5UBtsbLf8hPj0cVjMQ=
   /acorn-jsx/5.1.0_acorn@6.4.0:
     dependencies:
       acorn: 6.4.0
@@ -1441,6 +1479,20 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha512-7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==
+  /acorn/4.0.13:
+    dev: true
+    engines:
+      node: '>=0.4.0'
+    hasBin: true
+    resolution:
+      integrity: sha1-EFSVrlNh1pe9GVyCUZLhrX8lN4c=
+  /acorn/5.7.3:
+    dev: true
+    engines:
+      node: '>=0.4.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
   /acorn/6.4.0:
     dev: true
     engines:
@@ -1735,12 +1787,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
-  /babel-eslint/10.0.3:
+  /babel-eslint/10.0.3_eslint@5.16.0:
     dependencies:
       '@babel/code-frame': 7.8.3
       '@babel/parser': 7.8.3
       '@babel/traverse': 7.8.3
       '@babel/types': 7.8.3
+      eslint: 5.16.0
       eslint-visitor-keys: 1.1.0
       resolve: 1.15.0
     dev: true
@@ -2370,6 +2423,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==
+  /clone-buffer/1.0.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-4+JbIHrE5wGvch4staFnksrD3Fg=
   /clone-deep/4.0.1:
     dependencies:
       is-plain-object: 2.0.4
@@ -2380,12 +2439,46 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-neHB9xuzh/wk0dIHweyAXv2aPGZIVk3pLMe+/RNzINf17fe0OG96QroktYAUm7SM1PBnzTabaLboqqxDyMU+SQ==
+  /clone-stats/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha1-s3gt/4u1R04Yuba/D9/ngvh3doA=
   /clone/1.0.4:
     dev: true
     engines:
       node: '>=0.8'
     resolution:
       integrity: sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+  /clone/2.1.2:
+    dev: true
+    engines:
+      node: '>=0.8'
+    resolution:
+      integrity: sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+  /cloneable-readable/1.1.3:
+    dependencies:
+      inherits: 2.0.4
+      process-nextick-args: 2.0.1
+      readable-stream: 2.3.7
+    dev: true
+    resolution:
+      integrity: sha512-2EF8zTQOxYq70Y4XKtorQupqF0m49MBz2/yf5Bj+MHjvpG3Hy7sImifnqD6UA+TKYxeSV+u6qqQPawN5UvnpKQ==
+  /closure-webpack-plugin/2.2.1_9762beb8d0ca973552f2bdcde7cb9f46:
+    dependencies:
+      acorn: 5.7.3
+      acorn-dynamic-import: 2.0.2
+      google-closure-compiler: 20200112.0.0
+      schema-utils: 1.0.0
+      unquoted-property-validator: 1.1.0
+      webpack-sources: 1.4.3
+    dev: true
+    engines:
+      node: '>= 6.9.0 || >= 8.9.0'
+    peerDependencies:
+      google-closure-compiler: '>=20190215.0.1'
+      webpack: 4.x
+    resolution:
+      integrity: sha512-h3L47JlBERLfxX9RgXtjG/Zi6mGeVzdtZAWbahGYB15WtW2YeqoAA6RU3JefJ6Jt8M+eVZq3oEtr7+gCINTo1Q==
   /coa/2.0.2:
     dependencies:
       '@types/q': 1.5.2
@@ -3347,8 +3440,9 @@ packages:
       node: '>=0.8.0'
     resolution:
       integrity: sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
-  /eslint-loader/2.2.1_webpack@4.41.5:
+  /eslint-loader/2.2.1_eslint@5.16.0+webpack@4.41.5:
     dependencies:
+      eslint: 5.16.0
       loader-fs-cache: 1.0.2
       loader-utils: 1.2.3
       object-assign: 4.1.1
@@ -3361,9 +3455,10 @@ packages:
       webpack: '>=2.0.0 <5.0.0'
     resolution:
       integrity: sha512-RLgV9hoCVsMLvOxCuNjdqOrUqIj9oJg8hF44vzJaYqsAHuY9G2YAeN3joQ9nxP0p5Th9iFSIpKo+SD8KISxXRg==
-  /eslint-plugin-vue/5.2.3:
+  /eslint-plugin-vue/5.2.3_eslint@5.16.0:
     dependencies:
-      vue-eslint-parser: 5.0.0
+      eslint: 5.16.0
+      vue-eslint-parser: 5.0.0_eslint@5.16.0
     dev: true
     engines:
       node: '>=6.5'
@@ -4154,6 +4249,51 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-ollPHROa5mcxDEkwg6bPt3QbEf4pDQSNtd6JPL1YvOvAo/7/0VAm9TccUeoTmarjPw4pfUthSCqcyfNB1I3ZSg==
+  /google-closure-compiler-java/20200112.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-h/ExDCXAw88nOniQSbbK6et31kOwmaDxl6t52dnETCIzituQtGToPzy21vUel1o8o+FvWUybLoap+dEYBam1pA==
+  /google-closure-compiler-js/20200112.0.0:
+    dev: true
+    resolution:
+      integrity: sha512-xW47rSuiRaql6q1YN7+b3FXIW74b1nCcENVwm9cigw1H5gWoBMBJOmpZiXnjMfmYC+MALjPQ8giMzvSeP+2X5A==
+  /google-closure-compiler-linux/20200112.0.0:
+    dev: true
+    optional: true
+    resolution:
+      integrity: sha512-imTfdYP7BVTzzp3y7MuZP+98nEkbX7LZsZtxalNpl56vd+Ysc9/vOHXS14CdSoThaXIVlzX/lfjOlBRqPow+ew==
+  /google-closure-compiler-osx/20200112.0.0:
+    dev: true
+    optional: true
+    resolution:
+      integrity: sha512-E3S1KqZw4+Zov0VXCkjomPrYhyuuV6jH9InBchQ7cZfipFJjhQmSRf39u4Mu0sINW7GXfODZbzBwOXhEIquFQw==
+  /google-closure-compiler-windows/20200112.0.0:
+    dev: true
+    optional: true
+    resolution:
+      integrity: sha512-+5+UJFKXH0LGnYEHSVJxWwhtvX/MI6uebkAQkhma0057QsKs8fOToWuHL8/UbJULB4WUPa3DlHy0+Izs5z6lCQ==
+  /google-closure-compiler/20200112.0.0:
+    dependencies:
+      chalk: 2.4.2
+      google-closure-compiler-java: 20200112.0.0
+      google-closure-compiler-js: 20200112.0.0
+      minimist: 1.2.0
+      vinyl: 2.2.0
+      vinyl-sourcemaps-apply: 0.2.1
+    dev: true
+    engines:
+      node: '>=8'
+    hasBin: true
+    optionalDependencies:
+      google-closure-compiler-linux: 20200112.0.0
+      google-closure-compiler-osx: 20200112.0.0
+      google-closure-compiler-windows: 20200112.0.0
+    resolution:
+      integrity: sha512-8d43B3hU2pAFy6MD946oslArRe11jPJ/h/VaPPiiSMoSMFxnDpd8jjVJfM2solFSNOOZ9OacA6g/RVGMyp5lvg==
+  /google-protobuf/3.11.2:
+    dev: false
+    resolution:
+      integrity: sha512-T4fin7lcYLUPj2ChUZ4DvfuuHtg3xi1621qeRZt2J7SvOQusOzq+sDT4vbotWTCjUXJoR36CA016LlhtPy80uQ==
   /graceful-fs/4.2.3:
     dev: true
     resolution:
@@ -4162,6 +4302,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-HZRwumpOGUrHyxO5bqKZL0B0GlUpwtCAzZ42sgxUPniu33R1LSFH5yrIcBCHjkctCAh3mtWKcKd9J4vDDdeVHA==
+  /grpc-web/1.0.7:
+    dev: false
+    resolution:
+      integrity: sha512-Fkbz1nyvvt6GC6ODcxh9Fen6LLB3OTCgGHzHwM2Eni44SUhzqPz1UQgFp9sfBEfInOhx3yBdwo9ZLjZAmJ+TtA==
   /gzip-size/5.1.1:
     dependencies:
       duplexer: 0.1.1
@@ -5351,12 +5495,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
-  /mapbox-gl/1.6.1:
+  /mapbox-gl/1.6.1_mapbox-gl@1.6.1:
     dependencies:
       '@mapbox/geojson-rewind': 0.4.0
       '@mapbox/geojson-types': 1.0.2
       '@mapbox/jsonlint-lines-primitives': 2.0.2
-      '@mapbox/mapbox-gl-supported': 1.4.1
+      '@mapbox/mapbox-gl-supported': 1.4.1_mapbox-gl@1.6.1
       '@mapbox/point-geometry': 0.1.0
       '@mapbox/tiny-sdf': 1.1.1
       '@mapbox/unitbezier': 0.0.0
@@ -5379,6 +5523,8 @@ packages:
     dev: false
     engines:
       node: '>=6.4.0'
+    peerDependencies:
+      mapbox-gl: '*'
     resolution:
       integrity: sha512-qUvu8c/WX0woSLj8M64eK8351th4RI2+grGJ0ZlFb5ELEJNTb4SqMX/4uxRkb5d1euh2U72+AML1QOZjQnUPUw==
   /md5.js/1.3.5:
@@ -7117,6 +7263,12 @@ packages:
       node: '>=0.10'
     resolution:
       integrity: sha1-jcrkcOHIirwtYA//Sndihtp15jc=
+  /replace-ext/1.0.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
   /request-promise-core/1.1.3_request@2.88.0:
     dependencies:
       lodash: 4.17.15
@@ -7315,11 +7467,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-  /sass-loader/8.0.2:
+  /sass-loader/8.0.2_sass@1.25.0:
     dependencies:
       clone-deep: 4.0.1
       loader-utils: 1.2.3
       neo-async: 2.6.1
+      sass: 1.25.0
       schema-utils: 2.6.4
       semver: 6.3.0
     dev: true
@@ -7330,6 +7483,13 @@ packages:
       node-sass: ^4.0.0
       sass: ^1.3.0
       webpack: ^4.36.0 || ^5.0.0
+    peerDependenciesMeta:
+      fibers:
+        optional: true
+      node-sass:
+        optional: true
+      sass:
+        optional: true
     resolution:
       integrity: sha512-7o4dbSK8/Ol2KflEmSco4jTjQoV988bM82P9CZdmo9hR3RLnvNc0ufMNdMrB0caq38JQ/FgF4/7RcbcfKzxoFQ==
   /sass/1.25.0:
@@ -8342,6 +8502,12 @@ packages:
     dev: true
     resolution:
       integrity: sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=
+  /unquoted-property-validator/1.1.0:
+    dev: true
+    engines:
+      node: '>=6.0.0'
+    resolution:
+      integrity: sha512-ZWeQoYZ7HN8DCLeaowNv2GvZIXqJptKB1uUWd08ZYc1qAmJt8tXh9nck26aoYmhJtE3jCjDqdqEfUTqcJ0R7bw==
   /unset-value/1.0.0:
     dependencies:
       has-value: 0.3.1
@@ -8384,6 +8550,9 @@ packages:
     peerDependencies:
       file-loader: '*'
       webpack: ^4.0.0
+    peerDependenciesMeta:
+      file-loader:
+        optional: true
     resolution:
       integrity: sha512-goSdg8VY+7nPZKUEChZSEtW5gjbS66USIGCeSJ1OVOJ7Yfuh/36YxCwMi5HVEJh6mqUYOoy3NJ0vlOMrWsSHog==
   /url-parse/1.4.7:
@@ -8479,6 +8648,25 @@ packages:
       '0': node >=0.6.0
     resolution:
       integrity: sha1-OhBcoXBTr1XW4nDB+CiGguGNpAA=
+  /vinyl-sourcemaps-apply/0.2.1:
+    dependencies:
+      source-map: 0.5.7
+    dev: true
+    resolution:
+      integrity: sha1-q2VJ1h0XLCsbh75cUI0jnI74dwU=
+  /vinyl/2.2.0:
+    dependencies:
+      clone: 2.1.2
+      clone-buffer: 1.0.0
+      clone-stats: 1.0.0
+      cloneable-readable: 1.1.3
+      remove-trailing-separator: 1.1.0
+      replace-ext: 1.0.0
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha512-MBH+yP0kC/GQ5GwBqrTPTzEfiiLjta7hTtvQtbxBgTeSXsmKQRQecjibMbxIXzVT3Y9KJK+drOz1/k+vsu8Nkg==
   /vm-browserify/1.1.2:
     dev: true
     resolution:
@@ -8504,9 +8692,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-/2T/T47x8Aj3xLfrNYe5L1pzw+TnoDdKahcQflsPPjkXCuDss4rRVXVH0zzI3gpx2B1s9WW+yMYsg0JUlxgGEw==
-  /vue-eslint-parser/5.0.0:
+  /vue-eslint-parser/5.0.0_eslint@5.16.0:
     dependencies:
       debug: 4.1.1
+      eslint: 5.16.0
       eslint-scope: 4.0.3
       eslint-visitor-keys: 1.1.0
       espree: 4.1.0
@@ -8538,9 +8727,10 @@ packages:
   /vue-i18n/8.15.3:
     resolution:
       integrity: sha512-PVNgo6yhOmacZVFjSapZ314oewwLyXHjJwAqjnaPN1GJAJd/dvsrShGzSiJuCX4Hc36G4epJvNXUwO8y7wEKew==
-  /vue-loader/15.8.3_css-loader@3.4.2+webpack@4.41.5:
+  /vue-loader/15.8.3_e01023bcd933f6eb395a4ca239b93700:
     dependencies:
       '@vue/component-compiler-utils': 3.1.1
+      cache-loader: 4.1.0_webpack@4.41.5
       css-loader: 3.4.2_webpack@4.41.5
       hash-sum: 1.0.2
       loader-utils: 1.2.3
@@ -8549,8 +8739,12 @@ packages:
       webpack: 4.41.5_webpack@4.41.5
     dev: true
     peerDependencies:
+      cache-loader: '*'
       css-loader: '*'
       webpack: ^3.0.0 || ^4.1.0 || ^5.0.0-0
+    peerDependenciesMeta:
+      cache-loader:
+        optional: true
     resolution:
       integrity: sha512-yFksTFbhp+lxlm92DrKdpVIWMpranXnTEuGSc0oW+Gk43M9LWaAmBTnfj5+FCdve715mTHvo78IdaXf5TbiTJg==
   /vue-style-loader/4.1.2:
@@ -8952,9 +9146,13 @@ specifiers:
   '@vue/composition-api': ^0.3.4
   axios: ^0.19.2
   babel-eslint: ^10.0.3
+  closure-webpack-plugin: ^2.2.1
   core-js: ^3.4.4
   eslint: ^5.16.0
   eslint-plugin-vue: ^5.0.0
+  google-closure-compiler: ^20200112.0.0
+  google-protobuf: ^3.11.2
+  grpc-web: ^1.0.7
   mapbox-gl: ^1.6.1
   sass: ^1.23.7
   sass-loader: ^8.0.0

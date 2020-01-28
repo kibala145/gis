@@ -1,0 +1,88 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Bookmark service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message Bookmark {
+	string id = 1;
+	string user_id = 2;
+	string name = 3;
+	string url = 4;
+	string created_date = 5;
+	bool is_public = 6;
+}
+
+message Bookmarks {
+	repeated Bookmark bookmarks = 1;
+}
+
+service BookmarkService {
+
+	rpc CreateBookmark(Bookmark) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            post: "/private/bookmarks"
+            body: "*"
+        };
+	}
+
+	rpc UpdateBookmark(Bookmark) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            put: "/private/bookmarks"
+            body: "*"
+        };
+	}
+
+	rpc DeleteBookmark(Id) returns (google.protobuf.Empty){
+		option (google.api.http) = {
+            delete: "/private/bookmarks/{id}"
+        };
+	}
+
+	rpc GetPublicUserBookmarks(google.protobuf.Empty) returns (Bookmarks){
+		option (google.api.http) = {
+            get: "/public/bookmarks/user/anonymous"
+        };
+	}
+
+	rpc GetPublicBookmarkById(Id) returns (Bookmark){
+		option (google.api.http) = {
+            get: "/public/bookmarks/{id}"
+        };
+	}
+
+	rpc GetUserBookmarks(google.protobuf.Empty) returns (Bookmarks){
+		option (google.api.http) = {
+            get: "/private/bookmarks/user/logged"
+        };
+	}
+
+	rpc GetBookmarkById(Id) returns (Bookmark){
+		option (google.api.http) = {
+            get: "/private/bookmarks/{id}"
+        };
+	}
+}

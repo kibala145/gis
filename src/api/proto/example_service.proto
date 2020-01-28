@@ -1,0 +1,49 @@
+syntax = "proto3";
+package service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+	info: {
+		title: "Example service";
+		version: "1.0";
+    };
+    schemes: HTTP;
+    consumes: "application/json";
+    produces: "application/json";
+    responses: {
+		key: "404";
+		value: {
+			description: "Returned when the resource does not exist.";
+			schema: {
+				json_schema: {
+					type: STRING;
+				}
+			}
+		}
+	}
+};
+
+message ExampleRequest{
+    string data = 1;
+}
+
+message ExampleResponse{
+    string data = 1;
+}
+
+service ExampleService {
+
+    rpc PublicExample(ExampleRequest) returns (ExampleResponse){
+        option (google.api.http) = {
+            get: "/public/example"
+        };
+    }
+
+	rpc Example(ExampleRequest) returns (ExampleResponse){
+		option (google.api.http) = {
+            get: "/private/example"
+        };
+	}
+}
