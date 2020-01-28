@@ -45,9 +45,6 @@
   import MapboxSource from '@/components/mapbox/MapboxSource';
   import LayersControl from '@/modules/LayersControl/';
   import {mapStyles, zoom, center, hash, container, pitch} from '@/config';
-  import axios from 'axios'
-  import {getProjects} from "./api";
-  // import {mapState} from 'vuex';
 
   export default {
     data() {
@@ -256,8 +253,7 @@
         });
         e.target.getCanvas().style.cursor = '';
         this.featureId = null;
-      },
-      getProjects
+      }
     },
     computed: {
       /*...mapState({
@@ -271,71 +267,7 @@
       LayersControl
     },
     async mounted() {
-      this.getProjects();
-      /*
-        If getting error here,
-        then it should be handled by watching store state property
-        after watching once it's not null, remove watch handler to free memory
-      */
-      // const map = this.$store.state.map;
 
-      /* Once map is loaded you can use it fully */
-      /*map.on('load', () => {
-        map.on('click', 'building-3d', e => {
-          debugger
-          e
-        })
-      });*/
-      let res = await axios.get('https://dtp-api.gov39.ru/api/dtp_cards_preview');
-
-      this.data = {
-        type: 'FeatureCollection',
-        features: res.data.map(item => {
-          const latLng = [item.lng, item.lat];
-          delete item.lat;
-          delete item.lng;
-          return {type: 'Feature', geometry: {type: 'Point', coordinates: latLng}, properties: {...item}, id: item.id}
-        }),
-      };
-
-      /*setTimeout(() => {
-        // this.mapData.pop();
-        this.data = null;
-      }, 1000)*/
-
-      /*this.$store.state.map.addSource('dtp', {
-        type: 'geojson',
-// Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-// from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//         data: res.data,
-        data: {
-          type: 'FeatureCollection',
-          features: res.data.map(item => {
-            const latLng = [item.lng, item.lat];
-            delete item.lat;
-            delete item.lng;
-            return {type: 'Feature', geometry: {type: 'Point', coordinates: latLng}, properties: {...item}, id: item.id}
-          }),
-        },
-        // cluster: true,
-        // clusterMaxZoom: 14, // Max zoom to cluster points on
-        // clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-      });
-
-      this.$store.state.map.addLayer({
-        id: 'dtpCircle',
-        source: 'dtp',
-        type: 'circle',
-        paint: {
-          'circle-radius': [
-            'interpolate', ['linear'], ['zoom'],
-            8, 1,
-            17, 20,
-          ],
-          'circle-opacity': 0.8,
-          'circle-color': 'rgb(171, 72, 33)'
-        }
-      })*/
     }
   }
 </script>
